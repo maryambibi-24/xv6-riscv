@@ -46,3 +46,44 @@ You will need a RISC-V "newlib" tool chain from
 https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
 riscv64-softmmu.  Once they are installed, and in your shell
 search path, you can run "make qemu".
+# 10 OS Kernel Modules and Their Implementation
+
+1. Priority-Based CPU Scheduling:
+
+Add a priority value to each process and modify the scheduler to select runnable processes according to their priority.
+
+2. Interprocess Communication (IPC):
+
+Implement a mechanism such as message passing or pipes so processes can exchange data.
+
+3. Memory Management Monitoring:
+
+Track memory allocation and deallocation, and provide statistics about memory usage through a system call.
+
+4. Process Monitoring and Statistics:
+
+Track process IDs, states, and other process information, then display it using a user-level program.
+
+5. Process Synchronization:
+
+Use synchronization mechanisms, such as locks, to protect shared resources and prevent race conditions.
+
+6. Timer and Sleep Management:
+
+Use timer interrupts and process sleep/wakeup mechanisms to manage delays and wake sleeping processes at the appropriate time.
+
+7. System Call Monitoring:
+
+Modify the system-call handling mechanism to record the number or types of system calls executed.
+
+8. CPU Utilization Monitoring:
+
+Collect CPU activity statistics and calculate estimated CPU utilization for monitoring system performance.
+
+9. File System Monitoring:
+
+Track file operations such as opening, reading, writing, and closing files, and maintain operation statistics.
+
+10. Kernel Error and Event Logging:
+
+Record selected kernel events and errors in a controlled log to help identify problems and understand kernel behavior.
