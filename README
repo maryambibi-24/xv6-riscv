@@ -50,51 +50,79 @@ search path, you can run "make qemu".
 
 1. System Call Tracing
 Allow selected system calls to be traced, recording useful information such as the process ID, system-call name, and return value where appropriate.
+Features:
 1. Selective System Call Monitoring: Trace selected system calls, such as read, write, and fork, rather than printing every system call.
 2. Process and Result Tracking: Display the process ID (PID), system-call name, and return value when available.
 3. Tracing Control: Provide a way to enable tracing and configure which system calls are monitored.
+
+
 2. Process Information and Process Tree Monitor
 Display process details such as PID, name, and state, and show parent-child relationships between processes.
+Features:
 1. Process Information Display: Show each process's PID, name, and current state.
 2. Process Tree Display: Show parent-child relationships between processes.
 3. Process State Monitoring: Report states such as running, runnable, sleeping, and zombie.
+
+
 3. Process Priority Control
 Provide a controlled interface for changing a process's priority, with validation of priority values and appropriate permission checks.
+Features:
 1. Priority Assignment: Allow a process's priority to be changed within a defined range.
 2. Priority Validation: Reject values outside the supported priority range.
 3. Permission Checking: Apply a defined policy to restrict which processes may change a process's priority.
+
+
 4. Process Runtime Statistics
 Track and report useful process execution statistics, such as elapsed ticks or CPU runtime, while clearly defining what each measurement represents.
+Features:
 1. CPU Runtime Tracking: Measure the clock ticks a process spends running on the CPU.
 2. Runtime Reporting: Display runtime statistics for a selected process.
 3. Process Performance Comparison: Compare runtime measurements for different processes, while explaining that CPU runtime and elapsed time are different measurements.
+
+
 5. Disk I/O Statistics
 Track selected disk read/write operations or requests in the disk driver, then provide a way to inspect the counters.
+Features:
 1. Read Operation Counting: Count disk read requests or operations at a clearly defined point in the driver.
 2. Write Operation Counting: Count disk write requests or operations at a clearly defined point in the driver.
 3. I/O Statistics Display: Provide a way to inspect the read and write counters.
+
+
 6. Filesystem Usage Monitor
 Report filesystem information that can be measured safely, such as allocated blocks or inodes, subject to the filesystem's existing structures and consistency rules.
+Features:
 1. Disk Block Usage: Report allocated and available filesystem blocks where this can be measured safely.
 2. Inode Usage: Monitor allocated and available inodes where supported by the filesystem design.
 3. Filesystem Status Reporting: Display a summary of filesystem usage to help identify limited storage resources.
+
+
 7. Kernel Event and Boot Log
 Record selected kernel events, such as startup milestones and process creation or termination. A bounded log is preferable to unbounded memory use.
+Features:
 1. Boot Event Logging: Record important kernel initialization milestones.
 2. Process Event Logging: Record selected events such as process creation and termination.
 3. Bounded Event History: Keep a fixed-size or otherwise bounded log to avoid unbounded memory consumption.
+
+
 8. Process Sleep and Wakeup Monitoring
 Track selected sleep and wakeup events to help demonstrate how processes wait for events and become runnable again.
+Features:
 1. Sleep Event Tracking: Count selected events in which processes enter a sleeping state.
 2. Wakeup Event Tracking: Count events in which sleeping processes are awakened.
 3. Sleep/Wakeup Statistics: Display counters to help explain process waiting and scheduling behavior.
+
+
 9. Pipe Communication Monitoring
 Add diagnostic counters or observations for pipe reads, writes, and data transfer, without breaking normal pipe semantics.
+Features:
 1. Pipe Read Tracking: Count read operations performed on pipes.
 2. Pipe Write Tracking: Count write operations performed on pipes.
 3. Data Transfer Statistics: Track the number of bytes transferred through pipes.
+
+
 10. Kernel Memory Allocator Monitoring
 Track physical page allocations and frees, and expose useful totals for debugging memory use. This module focuses on physical page allocator activity and should avoid double-counting.
+Features:
 1. Physical Page Allocation Counting: Count physical pages allocated by the kernel.
 2. Memory Release Tracking: Count physical pages returned to the free-memory pool.
 3. Memory Statistics Reporting: Display allocation, release, and currently available-page statistics, with clear definitions for cumulative and current values.
