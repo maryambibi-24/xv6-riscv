@@ -48,81 +48,188 @@ riscv64-softmmu.  Once they are installed, and in your shell
 search path, you can run "make qemu".
 # 10 OS Kernel Modules  with their functions and Their Implementation
 
-1. System Call Tracing
-Allow selected system calls to be traced, recording useful information such as the process ID, system-call name, and return value where appropriate.
-Features:
-1. Selective System Call Monitoring: Trace selected system calls, such as read, write, and fork, rather than printing every system call.
-2. Process and Result Tracking: Display the process ID (PID), system-call name, and return value when available.
-3. Tracing Control: Provide a way to enable tracing and configure which system calls are monitored.
+Group Members:
+1.Maryam Bibi
+2.Mehreen Fatima
 
+# xv6-RISC-V Kernel Enhancement Project
 
-2. Process Information and Process Tree Monitor
-Display process details such as PID, name, and state, and show parent-child relationships between processes.
-Features:
-1. Process Information Display: Show each process's PID, name, and current state.
-2. Process Tree Display: Show parent-child relationships between processes.
-3. Process State Monitoring: Report states such as running, runnable, sleeping, and zombie.
+## Project Modules and Functionalities
 
+This project aims to enhance the existing xv6-RISC-V operating system by introducing additional kernel-level monitoring, process management, resource tracking, and communication functionalities. The following modules describe the proposed enhancements.
 
-3. Process Priority Control
-Provide a controlled interface for changing a process's priority, with validation of priority values and appropriate permission checks.
-Features:
-1. Priority Assignment: Allow a process's priority to be changed within a defined range.
-2. Priority Validation: Reject values outside the supported priority range.
-3. Permission Checking: Apply a defined policy to restrict which processes may change a process's priority.
+---
 
+## 1. System Call Tracing
 
-4. Process Runtime Statistics
-Track and report useful process execution statistics, such as elapsed ticks or CPU runtime, while clearly defining what each measurement represents.
-Features:
-1. CPU Runtime Tracking: Measure the clock ticks a process spends running on the CPU.
-2. Runtime Reporting: Display runtime statistics for a selected process.
-3. Process Performance Comparison: Compare runtime measurements for different processes, while explaining that CPU runtime and elapsed time are different measurements.
+This module monitors system calls made by user programs and provides information about their interaction with the kernel.
 
+### Main Functionalities
+- **Selective System Call Monitoring:** Allows selected system calls, such as `read()`, `write()`, `fork()`, and `exec()`, to be monitored.
+- **Process and Result Tracking:** Displays the Process ID (PID), system call name, and return value.
+- **Tracing Control:** Provides the ability to enable, disable, and configure system call tracing.
 
-5. Disk I/O Statistics
-Track selected disk read/write operations or requests in the disk driver, then provide a way to inspect the counters.
-Features:
-1. Read Operation Counting: Count disk read requests or operations at a clearly defined point in the driver.
-2. Write Operation Counting: Count disk write requests or operations at a clearly defined point in the driver.
-3. I/O Statistics Display: Provide a way to inspect the read and write counters.
+### Additional Functionalities
+- System call frequency counting.
+- Monitoring failed system calls.
+- Measuring system call execution time.
+- Generating system call activity reports.
 
+---
 
-6. Filesystem Usage Monitor
-Report filesystem information that can be measured safely, such as allocated blocks or inodes, subject to the filesystem's existing structures and consistency rules.
-Features:
-1. Disk Block Usage: Report allocated and available filesystem blocks where this can be measured safely.
-2. Inode Usage: Monitor allocated and available inodes where supported by the filesystem design.
-3. Filesystem Status Reporting: Display a summary of filesystem usage to help identify limited storage resources.
+## 2. Process Information and Process Tree Monitor
 
+This module provides information about active processes and displays their parent-child relationships.
 
-7. Kernel Event and Boot Log
-Record selected kernel events, such as startup milestones and process creation or termination. A bounded log is preferable to unbounded memory use.
-Features:
-1. Boot Event Logging: Record important kernel initialization milestones.
-2. Process Event Logging: Record selected events such as process creation and termination.
-3. Bounded Event History: Keep a fixed-size or otherwise bounded log to avoid unbounded memory consumption.
+### Main Functionalities
+- **Process Information Display:** Displays process details, including PID, process name, and current state.
+- **Process Tree Display:** Shows parent-child relationships between processes.
+- **Process State Monitoring:** Identifies processes in running, runnable, sleeping, and zombie states.
 
+### Additional Functionalities
+- Displaying the total number of active processes.
+- Searching for processes using PID or process name.
+- Filtering processes according to their current states.
+- Displaying parent and child process information.
 
-8. Process Sleep and Wakeup Monitoring
-Track selected sleep and wakeup events to help demonstrate how processes wait for events and become runnable again.
-Features:
-1. Sleep Event Tracking: Count selected events in which processes enter a sleeping state.
-2. Wakeup Event Tracking: Count events in which sleeping processes are awakened.
-3. Sleep/Wakeup Statistics: Display counters to help explain process waiting and scheduling behavior.
+---
 
+## 3. Process Priority Control
 
-9. Pipe Communication Monitoring
-Add diagnostic counters or observations for pipe reads, writes, and data transfer, without breaking normal pipe semantics.
-Features:
-1. Pipe Read Tracking: Count read operations performed on pipes.
-2. Pipe Write Tracking: Count write operations performed on pipes.
-3. Data Transfer Statistics: Track the number of bytes transferred through pipes.
+This module allows process priorities to be assigned and managed to influence CPU scheduling decisions.
 
+### Main Functionalities
+- **Priority Assignment:** Allows a priority value to be assigned to a process within a predefined range.
+- **Priority Validation:** Checks whether the assigned priority is within the permitted range.
+- **Permission Checking:** Restricts priority changes to authorized processes or users.
 
-10. Kernel Memory Allocator Monitoring
-Track physical page allocations and frees, and expose useful totals for debugging memory use. This module focuses on physical page allocator activity and should avoid double-counting.
-Features:
-1. Physical Page Allocation Counting: Count physical pages allocated by the kernel.
-2. Memory Release Tracking: Count physical pages returned to the free-memory pool.
-3. Memory Statistics Reporting: Display allocation, release, and currently available-page statistics, with clear definitions for cumulative and current values.
+### Additional Functionalities
+- Priority-based CPU scheduling.
+- Displaying the current priority of processes.
+- Inheriting priority values when creating child processes.
+- Priority aging to reduce process starvation.
+
+---
+
+## 4. Process Runtime Statistics
+
+This module monitors the CPU execution time of processes and provides runtime-related information.
+
+### Main Functionalities
+- **CPU Runtime Tracking:** Records the CPU time consumed by each process.
+- **Runtime Reporting:** Displays the execution time of individual processes.
+- **Process Performance Comparison:** Compares CPU runtime among different processes.
+
+### Additional Functionalities
+- Counting the number of times a process receives CPU time.
+- Identifying processes with the highest and lowest CPU usage.
+- Generating CPU usage summaries.
+- Tracking process execution statistics over time.
+
+---
+
+## 5. Disk I/O Statistics
+
+This module monitors disk input and output operations performed by the operating system.
+
+### Main Functionalities
+- **Read Operation Counting:** Tracks the number of disk read operations.
+- **Write Operation Counting:** Tracks the number of disk write operations.
+- **I/O Statistics Display:** Displays disk read and write statistics.
+
+### Additional Functionalities
+- Tracking the number of blocks read and written.
+- Measuring the amount of data transferred.
+- Comparing read and write activity.
+- Generating disk I/O activity reports.
+
+---
+
+## 6. Filesystem Usage Monitor
+
+This module monitors filesystem storage utilization and provides information about available and occupied resources.
+
+### Main Functionalities
+- **Disk Block Usage:** Tracks allocated and available filesystem blocks.
+- **Inode Usage:** Monitors used and available inodes.
+- **Filesystem Status Reporting:** Displays overall filesystem usage information.
+
+### Additional Functionalities
+- Calculating filesystem storage utilization percentage.
+- Counting files and directories.
+- Displaying available storage space.
+- Generating storage usage warnings when a predefined limit is reached.
+
+---
+
+## 7. Kernel Event and Boot Log
+
+This module maintains a record of important events that occur during kernel initialization and system execution.
+
+### Main Functionalities
+- **Boot Event Logging:** Records important events during kernel startup.
+- **Process Event Logging:** Records process-related events, such as process creation and termination.
+- **Bounded Event History:** Maintains a limited history of recent kernel events.
+
+### Additional Functionalities
+- Recording event timestamps using system ticks.
+- Filtering events according to event type.
+- Displaying recent kernel activity.
+- Recording important kernel errors and system events.
+
+---
+
+## 8. Process Sleep and Wakeup Monitoring
+
+This module monitors processes when they enter the sleeping state and when they become active again.
+
+### Main Functionalities
+- **Sleep Event Tracking:** Records when a process enters the sleeping state.
+- **Wakeup Event Tracking:** Records when a sleeping process becomes runnable again.
+- **Sleep/Wakeup Statistics:** Displays sleep and wakeup counts for processes.
+
+### Additional Functionalities
+- Measuring process sleep duration.
+- Identifying processes that frequently enter the sleeping state.
+- Maintaining sleep and wakeup event history.
+- Generating process sleep/wakeup activity reports.
+
+---
+
+## 9. Pipe Communication Monitoring
+
+This module monitors communication between processes through pipes, which provide an inter-process communication mechanism.
+
+### Main Functionalities
+- **Pipe Read Tracking:** Monitors data read from pipes by processes.
+- **Pipe Write Tracking:** Monitors data written into pipes by processes.
+- **Data Transfer Statistics:** Tracks the amount of data transferred through pipes.
+
+### Additional Functionalities
+- Counting active pipes.
+- Tracking the number of pipe read and write operations.
+- Maintaining pipe communication activity history.
+- Generating pipe communication reports.
+
+---
+
+## 10. Kernel Memory Allocator Monitoring
+
+This module monitors physical memory allocation and release operations performed by the kernel memory allocator.
+
+### Main Functionalities
+- **Physical Page Allocation Counting:** Tracks memory pages allocated by the kernel.
+- **Memory Release Tracking:** Monitors memory pages returned to the free memory pool.
+- **Memory Statistics Reporting:** Displays memory allocation and release statistics.
+
+### Additional Functionalities
+- Monitoring currently allocated physical pages.
+- Displaying available free memory pages.
+- Calculating memory utilization percentage.
+- Maintaining memory allocation activity history.
+
+---
+
+## Implementation Note
+
+The functionalities listed above represent the planned enhancements for the xv6-RISC-V operating system. Each module will be implemented and tested incrementally. A functionality will be considered completed only after its implementation, successful compilation, and appropriate testing.
